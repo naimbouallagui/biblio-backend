@@ -1,14 +1,12 @@
 const express = require("express");
 const bodyParser = require("body-parser");
+require('./Database/db');
 const app = express();
+const  bookApis = require('./Apis/bookApis');
 // Middleware
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.get('/', function (req, res) {
-    res.send('Hello World!')
-  })
+app.use('/api/books', bookApis);
 // listen to port 8080
-app.listen(8080, () => {
-  console.log("listening to port successfuly");
-});
+app.listen(8080);
