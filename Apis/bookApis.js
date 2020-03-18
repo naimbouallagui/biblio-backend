@@ -28,4 +28,16 @@ router.get('/getBook/:id', async (req, res) => {
   });
 });
 
+/**
+ *  updateBook
+ */
+router.patch('/updateBook/:id', (req, res) => {
+  BookModel.findByIdAndUpdate(req.params.id, { $set: req.body }, (err, result) => {
+  if (err)
+  res.sendStatus(500);
+  else
+  res.status(200).send("updated successfully");
+});
+});
+
 module.exports = router;
