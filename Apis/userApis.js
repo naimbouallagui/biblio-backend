@@ -23,7 +23,7 @@ router.post(
 /**
  *  loginUser
  */
-router.post("/login", function(req, res) {
+router.post("/login", (req, res) =>{
   var body = req.body;
   UserModel.findOne(
     { username: body.username, password: body.password },
@@ -44,10 +44,21 @@ router.post("/login", function(req, res) {
  *  getAllUsers
  */
 
-router.get("/getAllUsers", (req, res) => {
+router.get("/getAllUsers",(req, res) => {
     UserModel.find((err, result) => {
       if (err) res.status(400).send(err);
       else res.status(200).send(result);
     })
 });
+
+/**
+ *  getUserById
+ */
+router.get("/getUser/:id", passport.authenticate("bearer", { session: false }),(req, res) => {
+  UserModel.findById(req.params.id, (err, result) => {
+    if (err) res.status(400).send(err);
+    else res.status(200).send(result);
+  });
+});
+
 module.exports = router;
